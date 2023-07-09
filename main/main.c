@@ -10,29 +10,28 @@
 
 // Camera configurations
 #define CAMERA_MODEL_AI_THINKER
-#define CAMERA_PIN_PWDN     -1
-#define CAMERA_PIN_RESET    -1
-#define CAMERA_PIN_XCLK     4
-#define CAMERA_PIN_SIOD     18
-#define CAMERA_PIN_SIOC     23
-#define CAMERA_PIN_D7       36
-#define CAMERA_PIN_D6       37
-#define CAMERA_PIN_D5       38
-#define CAMERA_PIN_D4       39
-#define CAMERA_PIN_D3       35
-#define CAMERA_PIN_D2       34
-#define CAMERA_PIN_D1       32
-#define CAMERA_PIN_D0       33
-#define CAMERA_PIN_VSYNC    22
-#define CAMERA_PIN_HREF     26
-#define CAMERA_PIN_PCLK     21
+#define CAMERA_PIN_PWDN    32
+#define CAMERA_PIN_RESET   -1
+#define CAMERA_PIN_RESET   -1 //software reset will be performed
+#define CAMERA_PIN_XCLK    0
+#define CAMERA_PIN_SIOD    26
+#define CAMERA_PIN_SIOC    27
 
-// SD card configurations
-#define SD_CARD_INTR_GPIO  34
-#define SD_CARD_PIN_NUM_MISO 19
-#define SD_CARD_PIN_NUM_MOSI 23
-#define SD_CARD_PIN_NUM_CLK  18
-#define SD_CARD_PIN_NUM_CS   5
+#define CAMERA_PIN_D7      35
+#define CAMERA_PIN_D6      34
+#define CAMERA_PIN_D5      39
+#define CAMERA_PIN_D4      36
+#define CAMERA_PIN_D3      21
+#define CAMERA_PIN_D2      19
+#define CAMERA_PIN_D1      18
+#define CAMERA_PIN_D0       5
+#define CAMERA_PIN_VSYNC   25
+#define CAMERA_PIN_HREF    23
+#define CAMERA_PIN_PCLK    22
+
+#define CONFIG_OV2640_SUPPORT 1
+#define CONFIG_OV7670_SUPPORT 1
+
 
 static const char *TAG = "esp32-cam";
 
