@@ -55,7 +55,7 @@ void initialize_sd_card()
     sdmmc_card_print_info(stdout, card);
 }
 
-void capture_photo()
+void capture_photo(int i)
 {
     camera_config_t config = {
         .pin_pwdn = CAMERA_PIN_PWDN,
@@ -101,7 +101,7 @@ void capture_photo()
 
     // Save image to SD card
     char filename[32];
-    snprintf(filename, sizeof(filename), "/sdcard/image.jpg");
+    snprintf(filename, sizeof(filename), "/sdcard/image%d.jpg", i);
 
     FILE *file = fopen(filename, "w");
     if (!file) {
@@ -126,7 +126,14 @@ void capture_photo()
 
 void app_main()
 {
+    int i = 0;
     initialize_sd_card();
+    while(1)
+    {
 
-    capture_photo();
+        vTaskDelay(1);
+        capture_photo(i);
+        i++;
+    }
+    
 }
