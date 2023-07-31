@@ -7,6 +7,7 @@
 #include "driver/sdmmc_defs.h"
 #include "driver/sdmmc_types.h"
 #include "esp_vfs_fat.h"
+#include "esp_timer.h"
 
 // Camera configurations
 #define CAMERA_MODEL_AI_THINKER
@@ -55,7 +56,7 @@ void initialize_sd_card()
     sdmmc_card_print_info(stdout, card);
 }
 
-void capture_photo(int i)
+void init_camera()
 {
     camera_config_t config = {
         .pin_pwdn = CAMERA_PIN_PWDN,
@@ -91,11 +92,15 @@ void capture_photo(int i)
         ESP_LOGE(TAG, "Failed to initialize camera. Error: %s", esp_err_to_name(ret));
         return;
     }
+}
 
+void capture_photo(int i)
+{
     // Capture image
     camera_fb_t *fb = esp_camera_fb_get();
     if (!fb) {
         ESP_LOGE(TAG, "Failed to capture image");
+        printf("N\n");
         return;
     }
 
@@ -106,6 +111,7 @@ void capture_photo(int i)
     FILE *file = fopen(filename, "w");
     if (!file) {
         ESP_LOGE(TAG, "Failed to open file for writing");
+        printf("N\n");
         esp_camera_fb_return(fb);
         return;
     }
@@ -118,20 +124,24 @@ void capture_photo(int i)
 
     if (bytes_written == 0) {
         ESP_LOGE(TAG, "Failed to write image data to file");
+        printf("N\n");
         return;
     }
 
-    ESP_LOGI(TAG, "Image saved to file: %s", filename);
+    //ESP_LOGI(TAG, "Image saved to file: %s", filename);
+    printf("Y\n");
+    printf("time: %lld \n", esp_timer_get_time());
 }
 
 void app_main()
 {
     int i = 0;
     initialize_sd_card();
+    init_camera();
+    esp_timer_early_init();
     while(1)
     {
-
-        vTaskDelay(1);
+        vTaskDelay(1000);
         capture_photo(i);
         i++;
     }
